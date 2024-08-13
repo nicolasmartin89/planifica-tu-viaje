@@ -1,18 +1,12 @@
 import './App.css'
-import { Button } from "@/components/ui/button"
-
-
+import Hero from './components/custom/Hero'
 
 function App() {
 
   return (
-    <>
-      <div>
-        <h2>Bienvenidos a tu proximo viaje</h2>
-        <Button>Empieza tu viaje!</Button>
-
-      </div>
-    </>
+    <div>
+      <Hero />
+    </div>
   )
 }
 
