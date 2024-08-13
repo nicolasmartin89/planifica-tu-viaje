@@ -3,6 +3,7 @@ import { Input } from "../components/ui/input"
 import GooglePlacesAutocomplete from "react-google-places-autocomplete"
 import { SelectBudgetOptions, SelectTravelList } from "@/constants/options";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner"
 
 function CreateTrip() {
   const [place, setPlace] = useState();
@@ -19,6 +20,12 @@ function CreateTrip() {
     console.log(formData);
   }, [formData])
 
+  const onGenerateTrip=()=>{
+    if (formData?.numberOfDays>10||!formData?.numberOfDays||!formData?.location||!formData?.budget||!formData?.people) {
+      toast("Por favor completa todos los campos.")
+      return;  
+    }
+  }
 
   return (
     <div className="text-left">
@@ -76,7 +83,7 @@ function CreateTrip() {
 
       </div>
       <div className="my-10 text-center">
-        <Button>Crea el viaje de tus sueños!</Button>
+        <Button onClick={onGenerateTrip} >Crea el viaje de tus sueños!</Button>
       </div>
     </div>
   )
