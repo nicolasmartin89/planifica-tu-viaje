@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Input } from "../components/ui/input"
 import GooglePlacesAutocomplete from "react-google-places-autocomplete"
-import { SelectBudgetOptions, SelectTravelList } from "@/constants/options";
+import { AI_PROMPT, SelectBudgetOptions, SelectTravelList } from "@/constants/options";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner"
+import { chatSession } from "@/services/AIModal";
 
 function CreateTrip() {
   const [place, setPlace] = useState();
@@ -20,10 +21,29 @@ function CreateTrip() {
     console.log(formData);
   }, [formData])
 
-  const onGenerateTrip=()=>{
-    if (formData?.numberOfDays>10||!formData?.numberOfDays||!formData?.location||!formData?.budget||!formData?.people) {
-      toast("Por favor completa todos los campos.")
-      return;  
+  const onGenerateTrip = async () => {
+    // Verifica si todos los campos están completos
+    if (!formData?.location?.label || 
+        !formData?.numberOfDays || 
+        formData?.numberOfDays > 5 || 
+        !formData?.budget || 
+        !formData?.people) {
+      
+      toast("Por favor completa todos los campos");
+      console.log("ESTO ESTA ANDANDO ACA ABAJO VA EL FORMDATA");
+      console.log(formData);
+    } else {
+      // Si todas las validaciones pasan, modifica FINAL_PROMPT
+      let FINAL_PROMPT = AI_PROMPT
+        .replace('{location}', formData.location.label)
+        .replace('{numberOfDays}', formData.numberOfDays)
+        .replace('{budget}', formData.budget)
+        .replace('{people}', formData.people);
+      
+      console.log(FINAL_PROMPT);
+
+      const result = await chatSession.sendMessage(FINAL_PROMPT)
+      console.log(result?.response?.text())
     }
   }
 
@@ -44,7 +64,7 @@ function CreateTrip() {
         </div>
         <div>
           <h2 className="text-xl my-3 font-medium">📅 Cuantos días estas pensando viajar?</h2>
-          <Input type="number" placeholder={"Introduce los días de estadía. Por ejemplo: 3"} min="1" step="1"
+          <Input type="number" placeholder={"Introduce los días de estadía. Mínimo 1 - Máximo 5"} min="1" max="5" step="1"
             onChange={(event)=>handleInputChange('numberOfDays', event.target.value)} />
         </div>
         <div>
