@@ -17,6 +17,7 @@
     "axios": "^1.7.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "firebase": "^10.13.0",
     "lucide-react": "^0.427.0",
     "next-themes": "^0.3.0",
     "planifica-tu-viaje": "file:",

@@ -14,11 +14,16 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { useGoogleLogin } from "@react-oauth/google";
 import axios from 'axios';
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/services/firebaseConfig";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 
 function CreateTrip() {
   const [place, setPlace] = useState();
   const [formData, setFormData] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false)
+  const [openDialog, setOpenDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleInputChange = (name, value) => {
     setFormData({
@@ -51,7 +56,24 @@ function CreateTrip() {
     })
   }
 
-
+  const saveAiTrip = async (TripData) => {
+    setLoading(true);
+    const user = JSON.parse(localStorage.getItem('user'));
+    const docId = Date.now().toString();
+    console.log({
+      userSelection: formData,
+      tripData: TripData,
+      userEmail: user?.email,
+      id: docId
+    });
+    await setDoc(doc(db, "AiTrips", docId), {
+      userSelection: formData,
+      tripData: TripData,
+      userEmail: user?.email,
+      id: docId
+    });
+    setLoading(false);
+  }
 
   const onGenerateTrip = async () => {
 
@@ -74,16 +96,18 @@ function CreateTrip() {
       console.log(formData);
     } else {
       // Si todas las validaciones pasan, modifica FINAL_PROMPT
+      setLoading(true);
       let FINAL_PROMPT = AI_PROMPT
         .replace('{location}', formData.location.label)
         .replace('{numberOfDays}', formData.numberOfDays)
         .replace('{budget}', formData.budget)
         .replace('{people}', formData.people);
 
-      console.log(FINAL_PROMPT);
 
       const result = await chatSession.sendMessage(FINAL_PROMPT)
-      console.log(result?.response?.text())
+      console.log("---", result?.response?.text())
+      setLoading(false);
+      saveAiTrip(result?.response?.text())
     }
   }
 
@@ -139,11 +163,15 @@ function CreateTrip() {
             ))}
           </div>
         </div>
-
-
       </div>
       <div className="my-10 text-center">
-        <Button onClick={onGenerateTrip} >Crea el viaje de tus sueños!</Button>
+        <Button
+          disabled={loading}
+          onClick={onGenerateTrip}>
+          {loading ?
+            <AiOutlineLoading3Quarters className="h-7 w-7 animate-spin" /> : "Crea el viaje de tus sueños!"
+          }
+        </Button>
       </div>
       <Dialog open={openDialog}>
         <DialogContent>
@@ -152,9 +180,9 @@ function CreateTrip() {
               <img src="/logo.svg" />
               <h2 className="font-bold text-lg mt-5">Inicia sesión con Google.</h2>
               <p>Inicia sesión de modo seguro con la App de Google Auth.</p>
-              <Button className="w-full mt-4 flex gap-4 items-center text-base"
-                onClick={login}
-              >
+              <Button
+                className="w-full mt-4 flex gap-4 items-center text-base"
+                onClick={login}>
                 <FcGoogle className="h-7 w-7" />
                 Inicia sesión con Google
               </Button>
