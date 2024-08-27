@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDkpAY0YQWQG603LVCm5H93d_ae09fGnaU",
-  authDomain: "planificador-de-viajes-final.firebaseapp.com",
-  projectId: "planificador-de-viajes-final",
-  storageBucket: "planificador-de-viajes-final.appspot.com",
-  messagingSenderId: "399950622200",
-  appId: "1:399950622200:web:10cd071e951c58bef2fa0d"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 
