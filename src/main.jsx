@@ -11,6 +11,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
+import ViewTrip from './view-trip/[tripId]/index.jsx'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
   {
     path: "/crear-viaje",
     element: <CreateTrip />,
+  },
+  {
+    path: "/ver-viaje/:tripId",
+    element: <ViewTrip />,
   }
 ]);
 createRoot(document.getElementById('root')).render(
@@ -28,6 +33,6 @@ createRoot(document.getElementById('root')).render(
       <Header />
       <Toaster />
       <RouterProvider router={router} />
-    </GoogleOAuthProvider>;
+    </GoogleOAuthProvider>
   </StrictMode>,
 )

@@ -17,6 +17,7 @@ import axios from 'axios';
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/services/firebaseConfig";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 
 function CreateTrip() {
@@ -31,6 +32,7 @@ function CreateTrip() {
       [name]: value
     })
   }
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log(formData);
@@ -68,11 +70,12 @@ function CreateTrip() {
     });
     await setDoc(doc(db, "AiTrips", docId), {
       userSelection: formData,
-      tripData: TripData,
+      tripData: JSON.parse(TripData),
       userEmail: user?.email,
       id: docId
     });
     setLoading(false);
+    navigate('/ver-viaje/'+docId)
   }
 
   const onGenerateTrip = async () => {
