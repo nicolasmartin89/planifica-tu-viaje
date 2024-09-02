@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { toast } from 'sonner';
 import InfoSection from '../components/InfoSection';
 import HotelSection from '../components/HotelSection';
+import ItinerarySection from '../components/ItinerarySection';
 
 function ViewTrip() {
   const { tripId } = useParams();
@@ -35,7 +36,8 @@ function ViewTrip() {
     <div className='p-10 md:px-20 lg:px-44 xl:px-56'>
       <InfoSection trip={trip}/>
       <HotelSection trip={trip}/>
-      
+      <ItinerarySection trip={trip}/>
+
     </div>
   )
 }
