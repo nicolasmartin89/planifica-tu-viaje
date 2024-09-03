@@ -63,7 +63,12 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+
+  .container {
+    @apply px-4 md:px-8 lg:px-16 xl:px-24;
   }
 }
