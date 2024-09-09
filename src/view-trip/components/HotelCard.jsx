@@ -12,23 +12,31 @@ function HotelCard({ hotel, location }) {
 
     const [photoUrl, setPhotoUrl] = useState();
 
-    
+
     useEffect(() => {
         hotel && GetPlacePhoto()
     }, [hotel])
 
     const GetPlacePhoto = async () => {
-        const data = {
-            textQuery: hotel?.name
+        try {
+            const data = {
+                textQuery: hotel?.name
+            };
+            const result = await GetPlaceDetails(data);
+
+            const photos = result?.data?.places[0]?.photos;
+            if (photos && photos[3]) {
+                const photoName = photos[3].name;
+                const newPhotoUrl = PHOTO_REF_URL.replace('{NAME}', photoName);
+                setPhotoUrl(newPhotoUrl);
+            } else {
+                setPhotoUrl('/public/no-image-available.jpg'); // Imagen por defecto si no hay fotos
+            }
+        } catch (error) {
+            console.error("Error fetching place photo:", error);
+            setPhotoUrl('/public/error-loading-image.jpg'); // Imagen de error en caso de fallo
         }
-        const result = await GetPlaceDetails(data).then(resp => {
-            console.log(resp.data.places[0].photos[3].name)
-
-            const PhotoUrl=PHOTO_REF_URL.replace('{NAME}',resp.data.places[0].photos[3].name);
-            setPhotoUrl(PhotoUrl);
-        })
-    }
-
+    };
     return (
         <div
             className="rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer shadow-lg"
