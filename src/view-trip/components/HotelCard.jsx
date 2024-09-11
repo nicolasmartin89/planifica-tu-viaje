@@ -12,7 +12,7 @@ function HotelCard({ hotel, location }) {
 
     const [photoUrl, setPhotoUrl] = useState();
 
-    
+
     useEffect(() => {
         hotel && GetPlacePhoto()
     }, [hotel])
