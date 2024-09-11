@@ -32,7 +32,7 @@ function InfoSection({ trip }) {
                     className="h-[340px] w-full object-cover rounded-2xl"
                     alt="placeholder"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-40 rounded-2xl"></div>
+                <div className="absolute inset-0 bg-black bg-opacity-0 rounded-2xl"></div>
             </div>
 
             {/* Contenido principal */}

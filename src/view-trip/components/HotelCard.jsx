@@ -22,9 +22,9 @@ function HotelCard({ hotel, location }) {
             textQuery: hotel?.name
         }
         const result = await GetPlaceDetails(data).then(resp => {
-            console.log(resp.data.places[0].photos[3].name)
+            //console.log(resp.data.places[0].photos[2].name)
 
-            const PhotoUrl=PHOTO_REF_URL.replace('{NAME}',resp.data.places[0].photos[3].name);
+            const PhotoUrl=PHOTO_REF_URL.replace('{NAME}',resp.data.places[0].photos[1].name);
             setPhotoUrl(PhotoUrl);
         })
     }
@@ -40,7 +40,7 @@ function HotelCard({ hotel, location }) {
                     alt="placeholder"
                     className="h-[200px] w-full object-cover"
                 />
-                <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+                <div className="absolute inset-0 bg-black bg-opacity-0"></div>
             </div>
             <div className="p-4 bg-gray-800 text-white">
                 <h3 className="font-medium text-lg md:text-xl lg:text-2xl">
