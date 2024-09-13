@@ -12,6 +12,7 @@ import {
 } from "react-router-dom";
 import './index.css'
 import ViewTrip from './view-trip/[tripId]/index.jsx'
+import MyTrips from './my-trips/index.jsx'
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/ver-viaje/:tripId",
     element: <ViewTrip />,
+  },
+  {
+    path: "/mis-viajes",
+    element: <MyTrips/>
   }
 ]);
 createRoot(document.getElementById('root')).render(

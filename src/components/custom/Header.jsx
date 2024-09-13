@@ -56,16 +56,20 @@ function Header() {
       <div>
         {user ? (
           <div className="flex items-center gap-2">
-            <Button
-              variant="outline"
-              className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300"
-            >
-              Mis Viajes
-            </Button>
+            <a href="/mis-viajes">
+
+              <Button
+                variant="outline"
+                className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300"
+              >
+                Mis Viajes
+              </Button>
+            </a>
             <Popover>
               <PopoverTrigger>
                 <img
                   src={user.picture}
+                  referrerPolicy="no-referrer"
                   alt="Perfil de usuario"
                   className="h-[35px] w-[35px] rounded-full"
                 />
