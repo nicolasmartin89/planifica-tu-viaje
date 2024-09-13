@@ -56,8 +56,15 @@ function Header() {
       <div>
         {user ? (
           <div className="flex items-center gap-2">
+            <a href="/crear-viaje">
+              <Button
+                variant="outline"
+                className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300"
+              >
+                Crear Viaje
+              </Button>
+            </a>
             <a href="/mis-viajes">
-
               <Button
                 variant="outline"
                 className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-2 transition-all duration-300 ease-in-out shadow-md hover:shadow-lg transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-orange-300"
